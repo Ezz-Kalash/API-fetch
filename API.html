@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+</head>
+<style>
+    body{
+        background-color: rgb(30, 30, 30);
+    }
+    #movie-details{
+        margin-top: 3vw;
+        margin-left: 25%;
+        border: solid black 4px;
+        width: 50vw;
+        border-radius: 2%;
+        background-color: rgb(224, 224, 224);
+    }
+    h1{
+        text-align: center;
+        background-color: rgba(72, 183, 146, 0.768);
+        margin-top: 0px;
+        border-top-right-radius: 4%;
+        border-top-left-radius: 4%;
+        padding: 15px;
+
+    }
+    h2,h3,span{
+        margin-left: 1vw;
+    }
+    #poster{
+        width: 25vw;
+        height: 32vw;
+        margin-left: 24vw;
+        margin-top: -30vw;
+        border-radius: 2%;
+
+    }
+
+</style>
+<script>
+const apiUrl = `http://www.omdbapi.com/?i=tt3896198&apikey=fc144c98`;
+
+async function fetchMovieDetails() {
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        document.getElementById('title').textContent = data.Title;
+        document.getElementById('plot').textContent = data.Plot;
+        document.getElementById('year').textContent = data.Year;
+        document.getElementById('imdbRating').textContent = data.imdbRating;
+        document.getElementById('Runtime').textContent = data.Runtime;
+        
+        document.getElementById('Genre').textContent = data.Genre;
+        document.getElementById('poster').src = data.Poster;
+    } catch (error) {
+        console.error('Error fetching movie details:', error);
+    }
+}
+
+window.onload = fetchMovieDetails;
+
+</script>
+<body>
+    <div id="movie-details">
+        <h1>Movie Details</h1>
+            <h2>Title:</h2> <h3 id="title"></h3>
+
+            <h2>Year:</h2> <h3 id="year"></h3>
+
+
+            <h2>Genre:</h2> <h3 id="Genre"></h3>
+            <h2>Rating:</h2> <h3 id="imdbRating"></h3>
+            <h2>Runtime:</h2> <h3 id="Runtime"></h3>
+
+
+            
+            
+            <img id="poster" src="" alt="Movie Poster">
+            <h2>Plot:</h2> <h3 id="plot"></h3>
+
+    </div>
+
+</body>
+</html>
